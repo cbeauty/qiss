@@ -1,0 +1,861 @@
+
+
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"/>	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+<meta id="zcViewport" name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1.0, minimum-scale=0.5"/><title>Zoho Creator&nbsp;-&nbsp;Application</title>
+<link href="https://css.zohostatic.com/creator/zcs10169/images/creator-favicon.ico" rel="SHORTCUT ICON"/>
+
+<style media="screen">
+.zc-body-init{
+overflow: hidden;
+} 
+.zc_loader_container
+{
+background: #FFF;
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+bottom: 0px;
+right: 0;
+left: 0;
+z-index:99999;
+}
+</style>
+<script>function setCookie(keyName,value,expiryTime,domain,path)
+{
+var expdate=new Date();
+if(expiryTime)
+{
+expdate.setTime(expdate.getTime()+(expiryTime*24*3600*1000));
+}
+else
+{
+expdate.setTime(expdate.getTime()+(365*24*3600*1000));
+}
+var cookieStr = keyName+ "=" +escape(value)+ ";expires="+expdate.toGMTString()+";";//No I18N
+if(domain)
+{
+cookieStr = cookieStr + "domain="+escape(domain)+";";//No I18N
+}
+if(path)
+{
+cookieStr = cookieStr + "path="+escape(path)+";";//No I18N
+}
+document.cookie=cookieStr;
+}
+function loadCSS(url){
+var css = document.createElement("link");
+css.type = 'text/css';
+css.rel = 'stylesheet';
+css.href = url;
+document.getElementsByTagName("head")[0].appendChild(css);
+}
+function getCookie(keyName){
+try {
+if (document.cookie.length>0){
+cookieBegin=document.cookie.indexOf(keyName + "="); //No I18N
+if (cookieBegin!=-1){
+cookieBegin=cookieBegin + keyName.length+1;
+cookieEnd=document.cookie.indexOf(";",cookieBegin); //No I18N
+if (cookieEnd==-1){ 
+cookieEnd=document.cookie.length;
+}
+return unescape(document.cookie.substring(cookieBegin,cookieEnd));
+}
+}	
+} 
+catch(e) {}
+return ""; //No I18N
+}
+function isNull(value){
+if(!value || value == "undefined" || typeof(value) == "undefined" || value == "NULL" || value == "null" || value.length == 0 || value == ""){
+return true;
+}
+return false;
+}
+function loadFiles(itemsToLoad) { //don't remove this method from this file
+var promises = itemsToLoad.map(function(url) {
+return loadFile(url);
+});
+return Promise.all(promises);    
+}
+function loadFile(url, defer){ //don't remove this method from this file
+return new Promise(function(resolve, reject) {
+if(typeof(getConfig) != "undefined" && !getConfig().useCompression && !defer){
+return resolve();
+}
+var tag, type;
+var match = url.match(/\.([^.]+)$/);
+if (match) {
+type = match[1];
+}
+if (!type) {
+type = "js";  //No I18N
+}
+var filename = url.split("/");
+filename = filename[filename.length - 1];
+var fileid = filename.split(".")[0];
+if (type === 'css'){
+tag = document.createElement("link");
+tag.type = 'text/css';
+tag.rel = 'stylesheet';
+tag.href = url;
+tag.id = fileid+"_"+type;
+}
+else if (type === "js")
+{
+tag = document.createElement("script");
+tag.type = 'text/javascript';
+tag.defer = true;
+tag.src = url;
+tag.id = fileid+"_"+type;
+}
+if (tag) {
+tag.onload = function() {resolve(url)};
+tag.onerror = function() {reject(url)};
+document.getElementsByTagName("head")[0].appendChild(tag);
+}		
+});
+}
+/****
+* Temporary workaround. When 'catch' and 'delete' (which are js keywords) are included in js files, an parse error will be thrown by current compressor while minifying the script.
+* This workaround can be removed once a new compressor is updated.
+*/
+function catchPromiseChain(promise, handler){
+if(handler === undefined){
+handler = function(e){
+Console.log(e);
+}
+}
+return promise.catch(handler);
+}
+function deleteCache_CacheStorage(cache,key){
+return cache.delete(key);
+}
+function deleteCachePool_CacheStorage(poolName){
+return caches.delete(poolName);
+}
+function deleteObject_IndexedDB(objStore, key){
+return objStore.delete(key);
+}</script>
+<script type="text/javascript">var zcNewLivePublicDomain = "creatorl.zohopublic.com";
+/**this method is used to get csrf cookie since getCookie will not be loaded at this point**/
+function getCSRF(){
+try {
+var cookies = document.cookie.split(";");
+var csrfName = "zccpn"; 
+for(var i = 0; i<cookies.length; ++i){
+cookie = cookies[i].trim();
+if(cookie.indexOf(csrfName + '=') === 0){
+return cookie.substring(csrfName.length+1);
+}
+}
+}
+catch(e) {}
+return "";		
+}
+var clouddocurl = "https://gadgets.zoho.com/CloudPicker?attachLimit=1&sources=gdrive,zohodocs,skydrive,dropbox,box&originUrl=https://" + location.hostname + "&zservice=zcreator&check=true&frameorigin=https\x3A\x2F\x2Fcreator.zohopublic.com";	
+var fileCloudUrl = "https://gadgets.zoho.com/CloudPicker?ZC_PARAMS=&attachLimit=1&frameorigin=https\x3A\x2F\x2Fcreator.zohopublic.com&serURL=https://" + location.hostname + "/zoho_john1853/recruitment-management/gadgetcallback";	
+var fileCloudUrlFormperma = "https://gadgets.zoho.com/CloudPicker?ZC_PARAMS=&attachLimit=1&frameorigin=https\x3A\x2F\x2Fcreator.zohopublic.com&serURL=https://" + location.hostname + "/zoho_john1853/recruitment-management/gadgetcallback/19XuyaUWkFm7SyJQyS0NTXSeMfWBYvv35AqY4zZt4PvtXPG1naUByjU1bhd96kX1G00nq9Dr46CKm5zqsAOxU4gGqP3g3sBgDnFZ";
+;	
+var ZCGlobal = new function(){
+
+this.contextName = "app"; 
+this.csrfTokenName = "zccpn";	
+this.csrfToken = getCSRF();
+this.zcPublicServer = ["creator"+".zohopublic.com","creatorl"+".zohopublic.com","creator.zohopublic1.com"]; 
+this.scopeName = "zoho_john1853";
+this.scopeZuid = "699009703";	
+this.scopeEmail = "";	
+
+this.loginName = "Public";
+this.loginEmail = "";	
+this.loginZuid = "-100";
+this.loginUserId = "3905245000000000032";
+
+this.appLinkName = "recruitment-management";
+this.appDisplayName = "";
+this.applicationId = "3905245000000019017";	
+this.uiDateFormate = "DD-MMM-YYYY";  	
+this.serverPrefix = window.location.protocol + "//" + window.location.host;
+this.oldliveserver = "creator.zoho.com";	
+this.appurl = this.serverPrefix + "/" +  this.scopeName + "/" + this.appLinkName + "/";
+
+this.buildSetup = "us";
+
+this.appbuilderserverprefix = "https://creator.zoho.com"
+
+this.isPreviewAction = false;	
+this.previewAppurl = this.serverPrefix + "/preview/" +  this.scopeName + "/" + this.appLinkName + "/";	
+this.servicename = "zoho";
+this.sheet2AppDomain = "https://sheet2app.zoho.com"; 
+this.useSheet2App = false;
+
+this.zcChatEnabled 			= false; 	
+this.zcPreSalesEnabled		= false;  
+this.isChatRestrictionEnabled = false;	
+this.isNewExport = false;	
+this.isMobileLayout	= false;	
+this.zcUpgradeChatEnabled = false; 	
+this.zcPremiumChatEnabled = false; 	
+this.isAssitBotTrialEnabled = false; 
+this.superAdminEmailId = "qissiom@gmail.com"; 
+this.dataCenter	= "US"; 
+this.isSharedAnalyticsEnabled = false;
+
+this.appDirectionMeta = {
+isRTL			 : false ,
+sliderDirection  : false ? "left" : "right" , // No I18N
+scrollerPosition : false ? "left" : "right" ,  // No I18N
+tooltipPosition  : false ? "left" : "auto"	// No I18N
+}
+this.zappConfig = {
+host 				: "https://zapps.zoho.com",
+port 				: "",
+zappsHostDomain 	: "zappsusercontent.com",// No I18N
+zappsHostPort 		: ""
+}
+
+}</script>
+<script type="text/javascript">var i18n =
+{
+
+"pleasewait":"Please wait", 
+"ok" : "OK", 
+"yes" : "Yes", 
+"no" : "No", 
+"chatsupportweekends": "Our Chat Support is only available Monday-Friday. You can leave us an email to support&#x40;zohocreator.com and we will get back to you soon.", 
+"chatsupportrestrictionmsg" : "All our reps are busy. You can leave us an email to support&#x40;zohocreator.com and we will get back to you soon.", 
+"replace":"Replace", 
+"submit":"Submit", 
+"cancel":"Cancel", 
+"loading":"Loading", 
+"done":"Done", 
+"zc.common.back":"Back", 
+"openbuilder":"Open Builder",
+"underconstruction":"Under Construction",
+"back": "Back", 
+"emailmessage": "Enter email id", 
+"choice1": "Choice 1", 
+"choice2": "Choice 2", 
+"choice3": "Choice 3", 
+"singlelinemessage": "Enter single line value", 
+"nummessage": "Enter value", 
+"selectmessage": "Select value", 
+"linkname": "Link Name", 
+"taptoselect": "Tap to Select", 
+"uploadgallery": "Upload from gallery", 
+"takepicture": "Take a picture", 
+"subformmessage": "Tap to add Records", 
+"taptosign": "Tap to Sign", 
+/* Geo Location keys */
+"geoheaderform" : "You're required to share your location to use this form.", 
+"geoheaderduplicate" : "You're required to share your location to duplicate this record.", 
+"geoheaderbulkedit" : "You're required to share your location to edit these records.", 
+"geoheaderimportdata" : "You''re required to share your location to import data.", 
+"geoheaderfailure" : "You''re required to share your location to continue.", 
+"geodesc" : "If you click Allow, your location will be shared with this application''s owner when you submit this form.", 
+"geodescfailure" : "You have blocked your location from Zoho Creator. Please allow to continue. Learn more.", 
+"alreadyfileuploaded" : "You have already uploaded a file.", 
+"errormsg":"Error occurred. Please refresh the page and try again later.",
+"unconfirmeduserpublish": "The email address of the application owner is not yet verified. Please verify the email address to publish this component.", 
+"publicaccessupgrademsg1":"Trial and Free edition users are not allowed to publish.", 
+"publicaccessupgrademsg2":"Please contact &lt;a href&#x3d;&#x27;mailto&#x3a;support&#x40;zohocreator.com&#x27;&gt;support&#x40;zohocreator.com&lt;&#x2f;a&gt;", 
+"publishmaxlimitreachedmsg1":"Maximum number of components allowed to publish for your account has been exceeded. ", 
+"publishmaxlimitreachedmsg2":"Please contact &lt;a href&#x3d;&#x27;mailto&#x3a;support&#x40;zohocreator.com&#x27;&gt;support&#x40;zohocreator.com&lt;&#x2f;a&gt;", 
+"publishmaxplanmaxlimitreached":"Maximum number of components allowed to publish for your account has been exceeded.", 
+"selectOption":"Select",
+"lookupaddrestriction":"Sorry, this form cannot be accessed from this portal. Please contact your administrator for further assistance.",
+"redirectopaypal":"Redirecting to payment gateway...",
+"paypaypaymentcancel":"Payment has been cancelled...",
+"paypaypaymentsuccess":"Your payment has been processed successfully",
+"invalidentriesfound":"Invalid entries found",
+"correctandsubmit":"Please correct and submit again.",
+"redirectopaypal":"Redirecting to payment gateway...",
+"formlooksactive":"Form looks active",
+"fileuploadinprogress":"File upload is in progress, try to submit once all uploads are done.",
+"subformrowlimitreachedmsg":"You have reached maximum number of rows. You cannot add further.",
+"formlooksactive":"Form looks active",
+"nogeolocation":"Geolocation is not supported in this browser.",
+"formgeolocationerror":"Geo location is enabled for this form. ",
+"formgeolocationdesc":"Allow location access for this page to proceed.",
+"geolocbrowsererror":"Try with a different browser   ",
+"phonenovalidationerror":"Enter a valid phone number",
+"validEmailMsg":"Enter a valid email address for <strong> {0} </strong>",
+"validNumberMsg":"Enter a valid number for <strong> {0} </strong>",
+"maxdigitreached":"<strong> {0} </strong> value cannot exceed {1} digits",
+"roundDecimalMsg":"Round off the <strong> {0}</strong> field value to {1} decimal places",
+"validDateFormat":"Enter a valid date format for <strong> {0} </strong>", 
+"validTimeFormat":"Please enter a time in the format {0}", 
+"validWorkDay":"Choose only available days", 
+"validWorkHour":"Choose only available hours", 
+"validNumericFormat":"Input format does not match the required format {0}", 
+"mincharacter":"Please enter min. 2 characters", 
+"nomatchfound":"No matches found", 
+"integrationnomatchfound":"No matches found.", 
+"selectplaceholder":"-Select-",
+"prefixplaceholder":"None",
+"addresssearchmsg":"Search for an address",
+"noresultfound":"No results found",
+"deleterecord":"Do you really want to delete this record &#x3f;", 
+"delfailmsg":"Record&#x28;s&#x29; could not be deleted, since delete validate action failed.", 
+"delsuccmsg":"Record&#x28;s&#x29; deleted successfully.", 
+"nofldtomatch":"Please select the field(s) to match with existing record(s)",
+"plzpastedata":"Please provide input for file content",
+"importerror":"Error occurred while uploading the file. Kindly report this problem to support@zohocreator.com",
+"nofiletoimport":"Please select a file with data.",
+"unsupportedfile":"File format not supported. Please use a .CSV, .TSV, .XLS, .XLSX or .TXT file.",
+"emptyfiletoimport":"Please provide a file with data",
+"largefiletoimport":"Please provide a file of size less than 5MB",
+"uploadmore":"To upload more, contact support@zohocreator.com", 
+"importingmsg":"Importing Data ...", 
+"selcols4imp":"Please select columns to import", 
+"showimperrors":"Show Errors", 
+"hideimperrors":"Hide Errors", 
+"disperrormsg":"Please choose a Display Field.", 
+"dateerrormsg":"Please choose a Start Date.", 
+"grperrormsg":"Please choose a field to group report with.", 
+"maperrormsg":"Please choose a field to mapping field", 
+"unabletodelete1000recs":"Unable to delete more than 1000 records", 
+"unabletodup1000recs":"Unable to duplicate more than 1000 records", 
+"custActionExecMaxLimit":"Unable to execute this action for more than 1,000 records",    
+"duplicaterecords":"Duplicating Records", 
+"deleterecords":"Deleting Records", 
+"selectrectodup":"Please select at least one record to be duplicated", 
+"selectrectodelete":"Please select at least one record to be deleted", 
+"showing":"Showing", 
+"showsummary":"Show Summary", 
+"hidesummary":"Hide Summary", 
+"detailsummary":"Summary", 
+"of":"of", 
+"sum":"Total", 
+"max":"Maximum", 
+"min":"Minimum", 
+"avg":"Average", 
+"zc.reports.live.search.compositefield.regularsearch":"Regular Search", 
+"zc.reports.live.search.compositefield.subfieldsearch":"Search by Subfields", 
+"kanbanothercategory":"You cannot drop here as it is unlisted", 
+"kanbannegativeCategory":"You cannot drop here as it is no longer exist", 
+"kanbanemptymandatory":"You cannot drop here as this field is mandatory", 
+"kanbandefaultlistedcategory":"Drop here to move to {0}", 
+"comments.writereply" : "Write your reply...",  
+"comments.taguser" : "Type @ to tag a user",  
+"comments.reply" : "Reply",  
+"comments.cancelreply" : "Cancel",  
+"comments.viewreplies" : "View more replies",  
+"comments.confirmdelete" : "Are you sure that you want to delete this comment?",  
+"comments.restrictrecord" : "Record is inaccessible",  
+"comments.restrictdelete" : "Sorry! You can only delete comments that you have made.",  
+"comments.generalerror" : "An error has occurred",  
+"comments.onecomment"   : "Comment",  
+"comments.multiplecomment"   : "Comments",  
+"comments.delete"   : "Delete",  
+"comments.viewcomments"   : "View more comments",  
+"comments.charlimitexceeded" : "You can enter only up to 5000 characters.", 
+"deleteselrecsconf":"Are you sure you want to delete the selected &#x7b;0&#x7d; records &#x3f;", 
+"deleteselrecconf":"Are you sure you want to delete the selected &#x7b;0&#x7d; record &#x3f;", 
+"dupselrecsconf":"Are you sure you want to duplicate the selected &#x7b;0&#x7d; records &#x3f;", 
+"dupselrecconf":"Are you sure you want to duplicate the selected &#x7b;0&#x7d; record &#x3f;", 
+"selectatleastonerectoprintsummary":"You should select atleast one record to print the record summary.", 
+"viewinvalidentriesmessage":"Invalid entries found. Please correct and save again.", 
+"showatleastacolumn":"Select at least one column to display", 
+"listreporthidecolumn":"At least one column needs to be displayed", 
+"selectatleastacolumntoimport":"Select at least one column to import", 
+"reportregensuccess":"Regeneration has been initiated for this report. This may take a few minutes based on the volume of data.", 
+"reportregenfail":"Sorry. We are unable to regenerate the report.", 
+"spreadsheetcnfm":"Do you really want to leave this page&#x3f; Unsaved changes will be lost.", 
+"custactinfo":"Select at least one record that matches the criteria defined for this custom action", 
+"customactionexecution":"Do you want to execute &#x5b;0&#x5d; action for this record&#x3f;", 
+"onclickcustomactionmismatch":"The selected record does not match the criteria defined for this custom action", 
+"unabletodeletereport":"Unable to delete the Report.", 
+"fileuploadsizelimit":"File size must be lesser than 50MB", 
+"imagesizelimit":"File size must be lesser than 10MB", 
+"selectImageMsg":"Select Image", 
+"selectfileMsg":"Select File", 
+"localuploadHoverMsg":"Local Computer", 
+"linkHoverMsg":"URL", 
+"cameraHoverMsg":"Camera", 
+"audioHoverMsg":"Microphone", 
+"cloudUploadHoverMsg":"Cloud Storage", 
+"restoreMsg":"Restore", 
+"allowtoaccessmedia" : "Allow to access media&#x21;",
+"nomediasupport" : "Your browser does not support media&#x21;",
+"nosupportaudio" : "is not supported audio type",
+"nosupportvideo" : "is not supported video type",
+"uploadaudio": "You may only upload audio up to", 
+"uploadvideo": "You may only upload video up to",
+"shorteraudio": "long. Try uploading a shorter audio",
+"shortervideo": "long. Try uploading a shorter video",
+"uploadingvideo": "Uploading video...",
+"uploadingaudio": "Uploading audio...",
+"filesize": "Your file size exceeds 50MB ",
+"filecorrupted" : "The file you're trying to upload is not readable",
+"videopermissionline1" : "You're required to enable access to your microphone and camera before making a recording.",
+"audiopermissionline1" : "You're required to enable access to your microphone before making a recording.",
+"imagepermissionline1" : "You're required to enable access to your camera before capturing an image.",
+"imagepermissionline2" : "Click Allow to enable capturing. You may change this setting at any time.",
+"permissionline2" : "Click Allow to enable recording. You may change this setting at any time.",
+"blockpermissionline1" : "You cannot make a recording from your browser since you have blocked media access for Zoho creator. ",
+"blockpermissionline2" : "To continue, please change the permissions settings in your browser.",
+"imgblockpermissionline1" : "You cannot capture an image from your browser since you have blocked media access for Zohocreator.   ",
+"browsersupportline1" : "Sorry, but your browser doesn't support  media access. ",
+"browsersupportline2" : "Please try accessing this application from another browser.",
+"nofieldselect":"No fields selected&#x21;&#x21;", 
+"updatenofield":"Update record for no fields doesn&#x27;t make sense", 
+"norecordselect":"No records selected", 
+"updatenorecord":"Update record for no records doesn&#x27;t make sense", 
+"updaterecords":"The changes will be applied to the &#x7b;0&#x7d; selected records. Are you sure you want to continue&#x3f;", 
+"updaterecord":"The changes will be applied to the selected record. Are you sure you want to continue&#x3f;", 
+"vieweditinvalidmsg":"Invalid entries found. Please correct and save again.", 
+"emptyreportname":"Report name cannot be empty.", 
+"emptyfiltername":"Custom filter&#x27;s name cannot be empty.", 
+"reportnameexceedchar":"Report name cannot exceed 50 characters. Provide a different name.", 
+"filternameexceedchar":"Custom filter&#x27;s name cannot exceed 50 characters. Provide a different name.", 
+"bulkeditselcolumn":"Select the column to edit", 
+"either":"either", 
+"or":"or", 
+"month":"Month", 
+"week":"Week", 
+"day":"Day", 
+"nextmonth":"Next Month",  
+"nextweek":"Next Week",  
+"nextday":"Next Day",  
+"previousmonth":"Previous Month",  
+"previousweek":"Previous Week",  
+"previousday":"Previous Day", 
+"searchlimit":"Field cannot have more than six values in search" , 
+"correctvalueforn":"Please enter a valid number for N" , 
+"correctvaluetosearch":"Please enter a valid number to search",  
+"pdfdisablewarning":"Pdf export is currently not available for reports with multiple search values in a particular field",  
+"dropdownselect":"-Select-", 
+"otheroption":"Other", 
+"delalert":"Alert Message", 
+"delrecsuccess":"Deleted the following", 
+"delrecord":"record", 
+"delrecords":"records", 
+"delrecfailure":"Delete validation failed for the following ", 
+"delsuccessfully":"successfully.", 
+"noreversegeocode":"No address found for this location", 
+"rgeocodeservererror":"Internal error occurred. Try after some time.", 
+"restrictsearch" : "Search based on this field is no longer supported, click the &#x27;X&#x27; to remove.",
+"search" : "Search",
+"zc.dem.page.openbuilder":"Open Page Builder",
+"deprecateBannerHeader" : "Looks like your browser is out of date.",
+"deprecateBannerContent" : "To enjoy continued access to Zoho Creator in this browser, please update your browser to the latest version on or before October 31, 2018.",
+"deprecateBannerLinkMsg" : "Know more.",
+"deprecateBannerUserContent" : "To enjoy continued access to this application in this browser, please update your browser to the latest version on or before October 31, 2018. Contact your administrator for further information.",
+"deprecateBannerMobileContent" : "Please update your browser to the latest version on or before October 31, 2018.",
+"deprecateBannerMobileUserContent" : "Please update your browser to the latest version on or before October 31, 2018. Contact your administrator for further information.",
+"mapserviceerror" : "The map service is currently unavailable. Please try again later.",
+"mapserviceaddressnotfound" : "The map service is unable to find this address",
+"mapservicelocationnotfound" : "Location not found",
+"pickyourlocation" : "Pick your Location",
+"skydeskserviceEndMessage" : "SkyDesk Creator end of service on August 31, 2019. <a href=https://www2.skydesk.jp/notice-en/skydesk-update-190328.html target=_blank>Learn more</a>",
+"zc.builder.accountsetup.enable" : "Enable", 	
+"zc.builder.accountsetup.disable" : "Disable", 
+"zc.common.builder.upgrade.validation.enabled" : "The upgraded security framework has been enabled for this application.", 
+"zc.common.builder.upgrade.validation.enabledmessage" : "Before clicking on <b>Enable for all users</b>, please check for any changes in HTML content in pages along with the reports corresponding to the forms fields listed in", 
+"zc.common.builder.upgrade.validation.enabledmessage.split" : "Application Validation.", 
+"zc.common.builder.upgrade.validation.testlater" : "I'll test later", 
+"zc.common.builder.upgrade.validation.enableforall" : "Enable for all users", 
+"zc.common.builder.upgrade.validation.enabledadmin" : "The upgraded security framework has been enabled for this application by the application owner.", 
+"zc.common.builder.upgrade.validation.enabledadminmsg" : "Contact the application owner if you find any changes in this application.", 
+"zc.common.builder.upgrade.validation.enablepopoup" : "Enabling the upgraded security framework to all users of this application cannot be undone. Are you sure you want to enable it?", 
+"zc.common.builder.upgrade.validation.enablepopupbutton" : "Enable", 
+"zc.common.builder.upgrade.validation.enablepopupcancel" : "Cancel", 
+"zc.common.builder.upgrade.validation.disablepopup" : "The upgraded security framework has been disabled and this application can be validated later from the Updates tab in the Account Setup.", 
+"zc.common.builder.upgrade.validation.disablepopupold" : "The upgraded security framework has been disabled and this application can be validated later from the Notification icon found at the top-right corner within an application.", 
+"zc.general.errorMessage" : "Error Occurred. We are sorry for the inconvenience." 
+}</script><script>var jsLocale = "en";	
+var useCompression = true;	
+var label 			= "2655353";									
+var staticLabel 	= "zcs10169";								
+function getConfig()
+{
+var confprop={"useCompression":true,"cssStaticServer":'css.zohostatic.com',"jsStaticServer":'js.zohostatic.com',"domainVal":'zoho.com',"production":'true',"devSetup":false};  	
+return confprop;
+}
+var isERPropertyEnabled = true;
+var jsApacheServer 	= "https://js.zohostatic.com";		
+var cssApacheServer = "https://css.zohostatic.com";</script><script>
+function ZCPath(config){
+this.initComplete = false;
+var _self = this;
+this.basePath = { staticCss : config.cssServerPrefix+"/"+config.staticLabel+"/css/",
+staticJs : config.jsServerPrefix+"/"+config.staticLabel+"/js/",
+appJs : config.jsServerPrefix+"/"+config.buildLabel+"/app/js/",
+appCss : config.cssServerPrefix+"/"+config.buildLabel+"/app/css/",
+announcementJs : config.jsServerPrefix+"/"+config.buildLabel+"/announcement/js/",
+announcementCss : config.cssServerPrefix+"/"+config.buildLabel+"/announcement/css/",
+campaignCss : config.cssServerPrefix+"/"+config.buildLabel+"/campaigns/css/",
+appbuilderJs : config.jsServerPrefix+"/"+config.buildLabel+"/appbuilder/js" + config.jsVersion + "/",
+appbuilderCss : config.cssServerPrefix+"/"+config.buildLabel+"/appbuilder/css/",
+upgradeCss	:	config.cssServerPrefix+"/"+config.buildLabel+"/upgrade/css/",
+appeditCss	:	config.cssServerPrefix+"/"+config.buildLabel+"/appedit/css/"
+};
+this.init = function(){
+if(!_self.initComplete){
+//1. Init common params
+_self.initCommonParams();
+//2. Init live specific params
+_self.initLiveParams();
+//3. Init app specific params 
+for(var eachpath in _self.basePath){
+var currBasePath = _self.basePath[eachpath];
+for(var eachkey in ZCPath[eachpath].leafpaths){
+var filename =  ZCPath[eachpath].leafpaths[eachkey];
+ZCPath[eachpath][eachkey] = currBasePath + filename;
+}
+//delete ZCPath[eachpath].paths;
+ZCPath[eachpath]["basepath"] = currBasePath;
+}
+_self.initComplete = true;
+}
+}
+this.initCommonParams = function(){
+if(config.common){
+ZCPath.wmsliteJs	=	config.common.wmsliteJsUrl;
+ZCPath.wmsbarJs		=	config.common.wmsBarJsUrl;
+ZCPath.wmsbarCss	=	config.common.wmsBarCssUrl;
+ZCPath.storeJSUrl	=	config.common.storeJSUrl;
+ZCPath.storeCssUrl	=	config.common.storeCssUrl;
+}
+}
+this.initLiveParams	= function(){
+if(config.live){
+ZCPath.appCss.themeCss			= _self.basePath.appCss + config.live.defaultThemeFileCss;
+ZCPath.appCss.themeFont			= _self.basePath.staticCss + config.live.defaultThemeFontCss;
+ZCPath.appCss.rtlCss				= _self.basePath.appCss + config.live.rtlFileName;
+}
+}
+}
+ZCPath.upgradeCss = {
+leafpaths : {
+upgradeCss 		: "upgrade.css" 
+}
+};
+ZCPath.appeditCss = {
+leafpaths : {
+walkthroughCss 		: "zc_onboarding_walkthrough.css" 
+}
+};
+ZCPath.appbuilderCss = {
+leafpaths : {
+libCss				:	"lib.css", 
+creatorCss			:	"creator.css", 
+creatorBgCss		:	"creator_bg.css", 
+onboardCss			:	"onboard.css", 
+sectionsCss			:	"sections.css", 
+themesCss			:	"themes.css", 
+quickshareCss		:	"quickshare.css", 
+upgradePopupCss		:	"upgradepopup.css", 
+pagebuilderCss		:	"pagebuilder.css", 
+pageappearanceCss	:	"pageappearance.css", 
+settingsCss			:	"settings.css", 
+formbuilderCss		:	"formbuilder.css", 
+workflowbuilderCss	:	"workflowbuilder.css", 
+functionbuilderCss	:	"functionbuilder.css", 
+pagebuilderBgCss	:	"pagebuilder_bg.css", 
+delugebuilderCss	:	"deluge_builder.css", 
+templatebuilderCss	:	"templatebuilder.css", 
+templateprintbuilderCss	:	"templateprintbuilder.css", 
+templateprintbuilderOldCss: "templateprintbuilder_old.css", 
+templateprintbuilderBgCss	: "templateprintbuilder_bg.css", 
+dbEmCommonCss 		: "db-em-common.css", 
+livechatCss			: 'zclivechat.css', 
+fontDbEmCommonCss 	: "fonts-dbem-common.css", 
+schemabuilderCss	: isERPropertyEnabled? "erdiagram.css":"schemabuilder.css"
+}
+};
+ZCPath.appbuilderJs = {
+leafpaths :{
+libJs 				:		'lib.js', 
+creatorJs			:		'creator.js', 
+campaignsJs			:		'campaigns_js.js', 
+bootJs				:		'boot.js', 
+upgradePopupJs		:		'upgradepopup.js', 
+helpCardJs			:		'helpcard.js', 
+securityJs			:		'zc_common_security.js', 
+schemabuilderJs		: 		isERPropertyEnabled? 'erdiagram.js':'schemabuilder.js'
+}
+}
+ZCPath.staticCss = {
+leafpaths : {
+pbfonticonCss 		: 'zc-pb-fonticons.css', 
+fontsbootCss		: 'fonts-boot.css', 
+tpbootCss 			: 'tp-boot.css', 
+tpthemeCss			: 'tp-theme.css', 
+fontpreviewCss		: 'font-preview.css', 
+supportCss 			: 'support-Feedback.css', 
+zbuttonCss			: 'tp-button.css', 
+fontsDbEmCommonCss	: 'fonts-dbem-common.css', 
+zcAppBrand			: 'zc-app-brand.css', 
+fontsEmliveCommonCss :	'fonts-emlive-common.css', 
+fontsC5BuilderCss	:	'fonts-c5builder.css', 
+ptFonticonsCss		: 'zc-pt-fonticons.css', 
+tpLibCss			: 'tp-lib.css', 
+tpColorPickerCss	: 'tp-colorpicker.css', 
+micsNotificationCss : 'mics_css.css', 
+cloudEditorCss      : 'zce.min.css',
+cloudTreeCss        : 'style.min.css'
+}
+};
+ZCPath.staticJs = {
+leafpaths : {
+requireJs 			: 'require.js', 
+tpEMliveJs			: 'tp-emlive.js', 
+tpC5builderJs		: 'tp-c5Builder.js', 
+jqueryJs			: 'jquery.js', 
+tpLiveDepsJs 		: 'tp-live-deps.js', 
+tpLiveLibJs			: 'tp-livelib.js', 
+supportJs			: 'support-Feedback.js', 
+micsNotificationJs 	: 'mics_js.js', 
+zcsSecurityJs		: 'security.js', 
+cloudEditorJs             : 'zce_v2.min.js',
+cloudTreeJs             : 'jstree.min.js',
+cloudLoaderJs             : 'loader.js'
+}
+};
+ZCPath.appJs = {
+leafpaths : {
+bootJs 				: 'bootstrap.js', 
+liveLibJs			: 'livelib.js', 
+mobileLiveJs 		: 'livelib-mobile.js', 
+mobileEventsJs		: 'mobileevents.js', 
+campaignsJs			: 'campaigns_js.js', 
+reachusJs	 		: 'reachUs.js', 
+livechatJs			: 'zclivechat.js', 
+bannerJs	 		: 'zc_banner.js', 
+errorHandlerJs		: "zcErrorHandler.js", 
+installAppOnboardJs : 'installAppOnboard.js' 
+}
+};
+ZCPath.appCss = {
+leafpaths : {
+bootCss 			: 'boot.css', 
+reachusCss 			: 'reachUs.css', 
+pageCss				: 'page.css', 
+pageOldCss 			: 'pageold.css', 
+mobileCss			: 'mobilelive.css', 
+customizedPortalTemplateCss	:	'customizedPortalTemplate.css', 
+bannerCss	 		: 'zc_banner.css', 
+nlpCss				: 'zc_nlp.css', 
+installAppOnboardCss : 'installAppOnboard.css', 
+sharedanalytics : 'sharedanalytics.css'
+}
+};
+ZCPath.announcementJs = {
+leafpaths : {
+betafeatureJs 		: 'zc_betafeature.js' 
+}
+};
+ZCPath.announcementCss = {
+leafpaths : {
+betafeatureCss 		: 'zc_betafeature.css' 
+}
+};
+ZCPath.campaignCss = {
+leafpaths : {
+assistbotCss 		: 'assistbot.css' 
+}
+};
+new ZCPath({
+cssServerPrefix : "https://css.zohostatic.com/creator", 
+jsServerPrefix 	: "https://js.zohostatic.com/creator",
+staticLabel 	: "zcs10169",
+buildLabel 		: "2655353",
+jsVersion 		: "/es6",	
+common : {
+wmsliteJsUrl : "//js.zohostatic.com/ichat/Nov_11_2019_1_https/js/wmsliteapi.js",
+storeJSUrl	 : "https://js.zohostatic.com/storehandler/v9/js/zswidget.min.js",
+storeCssUrl	 : "https://css.zohostatic.com/storehandler/v9/css/zswidget.min.css",
+wmsBarJsUrl	 : "//js.zohostatic.com/ichat/Nov_11_2019_1_https/js/wmsbar.js",
+wmsBarCssUrl : "//css.zohostatic.com/ichat/Nov_11_2019_1_https/css/wmsbar.css"
+},
+live : {
+defaultThemeFileCss : "theme1.1.css",
+defaultThemeFontCss : "font-proximanova.css",
+rtlFileName			: "rtl_theme1.1.css"
+}
+}).init();</script><link rel="dns-prefetch" href="//css.zohostatic.com"><link rel="dns-prefetch" href="//js.zohostatic.com">
+
+<style>
+/* common loading for embed,perma */
+#zc-loader {
+position: fixed;
+top: 50%;
+left: 50%;
+z-index: 100000;
+position: fixed;
+top: 50%;
+left: 0;
+z-index: 999999;
+right: 0;
+margin: 0 auto;
+width: 53px;
+}
+#zc-loader span {
+display: block;
+bottom: 0;
+width: 9px;
+height: 5px;
+background: #b3b3b3;
+position: absolute;
+animation: zc-loader 1.5s infinite ease-in-out;
+-webkit-animation: zc-loader 1.5s infinite ease-in-out;
+-moz-animation: zc-loader 1.5s infinite ease-in-out;
+-ms-animation: zc-loader 1.5s infinite ease-in-out;
+box-shadow: none;
+}
+#zc-loader span:nth-child(2) {
+left: 11px;
+animation-delay: .2s;
+-webkit-animation-delay: .2s;
+-moz-animation-delay: .2s;
+-ms-animation-dealy: .2s;
+}
+#zc-loader span:nth-child(3) {
+left: 22px;
+animation-delay: .4s;
+-webkit-animation-delay: .4s;
+-moz-animation-delay: .4s;
+-ms-animation-dealy: .4s;
+}
+#zc-loader span:nth-child(4) {
+left: 33px;
+animation-delay: .6s;
+-webkit-animation-delay: .6s;
+-moz-animation-delay: .6s;
+-ms-animation-dealy: .6s;
+}
+#zc-loader span:nth-child(5) {
+left: 44px;
+animation-delay: .8s;
+-webkit-animation-delay: .8s;
+-moz-animation-delay: .8s;
+-ms-animation-dealy: .8s;
+}
+#zc-loader .line {
+position: static !important;
+width: auto !important;
+height: auto !important;
+background-color: inherit !important;
+}
+@keyframes zc-loader {
+0% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+25% {
+height: 30px;
+transform: translateY(15px);
+background: #b3b3b3;
+}
+50% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+100% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+}
+@-webkit-keyframes zc-loader {
+0% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+25% {
+height: 30px;
+transform: translateY(15px);
+background: #b3b3b3;
+}
+50% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+100% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+}
+@-moz-keyframes zc-loader {
+0% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+25% {
+height: 30px;
+transform: translateY(15px);
+background: #b3b3b3;
+}
+50% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+100% {
+height: 5px;
+transform: translateY(0px);
+background: #b3b3b3;
+}
+}
+</style>
+<script>cssLoaded = false, jsLoaded = false;
+function hidePageLoading(){
+if(!cssLoaded || !jsLoaded || (typeof(loadingFlag) != "undefined" && loadingFlag)) {  //No I18N
+setTimeout(hidePageLoading,100);
+return false;
+}
+var elt1 = document.getElementById("zc-loader");
+elt1.parentNode.removeChild(elt1); 
+var elt2 = document.getElementById("zc-welcome-loading");
+elt2.parentNode.removeChild(elt2);
+document.body.className = document.body.className.replace("zc-body-init ","");
+}</script><script>var wFlag 			= false;								
+var isPrviewAction	= false;									
+var bootConfig 		= {
+useCompression	: useCompression,
+label			: label,
+staticLabel		: staticLabel,
+walkThrough		: wFlag, 
+data			: {"Application_Status":{"FIELDVALUE":{"isSelected":true,"id":"Applied","text":"Applied"}},"Email":{"FIELDVALUE":""},"Phone_Number":{"FIELDVALUE":""},"Section":{"FIELDVALUE":""},"Resume":{"FIELDVALUE":""},"Name":{"last_name":{"FIELDVALUE":""},"first_name":{"FIELDVALUE":""},"recID":""}},
+dynMeta		: {"#Application":{"FORMACCESSTYPE":1,"FIRSTFIELDFOCUS":true,"FORMPARAMS":"privatelink=19XuyaUWkFm7SyJQyS0NTXSeMfWBYvv35AqY4zZt4PvtXPG1naUByjU1bhd96kX1G00nq9Dr46CKm5zqsAOxU4gGqP3g3sBgDnFZ&"}},
+compMeta		: {"APPLINKNAME":"recruitment-management","FORMACCESSTYPE":1,"FORMHEADER":true,"HASONLOADEXIST":false,"FORMDISPLAYNAME":"Application","IS24_HOUR_FORMAT":true,"RULESCRIPT":"{\"formLinkName\":\"Application\",\"formAccessType\":1,\"rules\":[{\"groups\":[{\"condition\":\"true\",\"conditionFields\":[],\"executeOn\":1,\"tasks\":[{\"taskType\":1,\"taskConfig\":{\"FIELDS\":[\"Application_Status\"]}}]}]}],\"isNewWfEnabled\":true}","RANDSTR":"ZC_ACXDEF","FORMSTYLE":".zc-Application_Status{}\n.zc-Application_Status-group{display:block;}\n.zc-Email{}\n.zc-Email-group{display:block;}\n.zc-Phone_Number{}\n.zc-Phone_Number-group{display:block;}\n.zc-Name{}\n.zc-Name-group{display:block;}\n.zc-Resume{}\n.zc-Resume-group{display:block;}\n","NEXTURL":"","FORMLABELWIDTHTYPE":"auto","FORMLINKNAME":"Application","ISCAPTCHAENABLED":false,"GEOLOCATION":false,"FIRSTFIELDFOCUS":true,"FORMID":"3905245000000019043","FORMALIGN":1,"FORMLAYOUT":{"Application_Status":{"APPLINKNAME":"recruitment-management","INPUTTYPE":"text","OTHERSOPTION":"Other","ISFORMULAEXIST":"false","ISSUBFORM":"false","FIELDTYPE":29,"FORMACCESSTYPE":1,"ISSEARCHFIELD":"false","ISSELECTFIELD":true,"FORMCOMPID":"3905245000000019163","FIELDDISPLAYNAME":"Application Status","FIELDCOLUMN":"1","VISIBLE":true,"POSITION":"803011","SEQUENCE_NUMBER":3,"FIELDCLASSNAME":"zc-Application_Status","FIELDWIDTH":200,"FIELDDESCTYPE":0,"ISSATURATED":true,"FIELDISHIDDEN":false,"RANDSTR":"ZC_ACXDEF","FIELDHIEGTH":13,"FIELDDESC":"","ISZIAINPUT":false,"FIELDCHOICES":"[{\"isSelected\":false,\"id\":\"Applied\",\"text\":\"Applied\"}, {\"isSelected\":false,\"id\":\"Scheduled&#x20;for&#x20;Interview\",\"text\":\"Scheduled for Interview\"}, {\"isSelected\":false,\"id\":\"Selected\",\"text\":\"Selected\"}, {\"isSelected\":false,\"id\":\"Rejected\",\"text\":\"Rejected\"}]","FORMLINKNAME":"Application","FIELDCOMPTYPE":1100,"ISLOOKUP":false,"ISTRANSLATEDFIELD":false,"FORMALIGN":1,"FIELDLABELNAME":"Application_Status","ISOTHERENABLED":false,"FIELDISMANDATORY":false,"ACTUALLABEL":"Application_Status","FIELDCOMPNAME":"picklist","ISMOBILE":false,"ONCHANGEEXIST":false,"IS_DYNAMIC_LOOKUP":false,"FIELDISUNIQUE":false,"CHOICECOLUMN":1,"FIELDCOMPID":"3905245000000019163","IS_LIVE_VAR_CRITERIA_LOOKUP":false,"READONLY":false,"FIELDSIZECLASSNAME":"mediumSizeLive"},"Email":{"APPLINKNAME":"recruitment-management","INPUTTYPE":"text","ISFORMULAEXIST":"false","ISSUBFORM":"false","FIELDTYPE":4,"FORMACCESSTYPE":1,"FORMCOMPID":"3905245000000019185","FIELDDISPLAYNAME":"Email","FIELDCOLUMN":"1","VISIBLE":true,"POSITION":"804011","SEQUENCE_NUMBER":4,"FIELDCLASSNAME":"zc-Email","FIELDWIDTH":200,"FIELDDESCTYPE":0,"FIELDISHIDDEN":false,"FIELDMAXCHAR":255,"RANDSTR":"ZC_ACXDEF","FIELDHIEGTH":13,"FIELDDESC":"","ISZIAINPUT":false,"FORMLINKNAME":"Application","FIELDCOMPTYPE":4,"FORMALIGN":1,"FIELDLABELNAME":"Email","FIELDISMANDATORY":true,"ACTUALLABEL":"Email","FIELDCOMPNAME":"email","ISMOBILE":false,"ONCHANGEEXIST":false,"FIELDISUNIQUE":false,"FIELDCOMPID":"3905245000000019185","READONLY":false,"FIELDSIZECLASSNAME":"mediumSizeLive"},"Phone_Number":{"APPLINKNAME":"recruitment-management","INPUTTYPE":"text","ISFORMULAEXIST":"false","ISSUBFORM":"false","FIELDTYPE":8,"FORMACCESSTYPE":1,"FORMCOMPID":"3905245000000019193","FIELDDISPLAYNAME":"Phone","FIELDCOLUMN":"1","VISIBLE":true,"POSITION":"805011","SEQUENCE_NUMBER":5,"FIELDCLASSNAME":"zc-Phone_Number","FIELDWIDTH":200,"FIELDDESCTYPE":0,"FIELDISHIDDEN":false,"RANDSTR":"ZC_ACXDEF","FIELDHIEGTH":13,"FIELDDESC":"","ISZIAINPUT":false,"FORMLINKNAME":"Application","FIELDCOMPTYPE":8,"FORMALIGN":1,"FIELDLABELNAME":"Phone_Number","FIELDISMANDATORY":false,"ACTUALLABEL":"Phone_Number","FIELDCOMPNAME":"phonenumber","ISMOBILE":false,"ONCHANGEEXIST":false,"FIELDISUNIQUE":false,"FIELDCOMPID":"3905245000000019193","READONLY":false,"FIELDSIZECLASSNAME":"mediumSizeLive"},"Section":{"APPLINKNAME":"recruitment-management","INPUTTYPE":"text","ISFORMULAEXIST":"false","ISSUBFORM":"false","FIELDTYPE":35,"FORMACCESSTYPE":1,"FORMCOMPID":"3905245000000019145","FIELDDISPLAYNAME":"Section","FIELDCOLUMN":"0","VISIBLE":true,"POSITION":"801010","SEQUENCE_NUMBER":1,"FIELDCLASSNAME":"zc-Section","FIELDWIDTH":300,"FIELDDESCTYPE":0,"FIELDISHIDDEN":false,"RANDSTR":"ZC_ACXDEF","FIELDHIEGTH":13,"FIELDDESC":"","ISZIAINPUT":false,"SECTIONISENABLED":false,"FORMLINKNAME":"Application","FIELDCOMPTYPE":35,"FORMALIGN":1,"FIELDLABELNAME":"Section","FIELDISMANDATORY":false,"ACTUALLABEL":"Section","FIELDCOMPNAME":"section","ISMOBILE":false,"ONCHANGEEXIST":false,"FIELDISUNIQUE":false,"FIELDCOMPID":"3905245000000019145","READONLY":false,"FIELDSIZECLASSNAME":"mediumSizeLive"},"Name":{"APPLINKNAME":"recruitment-management","INPUTTYPE":"text","ISFORMULAEXIST":"false","ISSUBFORM":"false","FIELDTYPE":33,"COMPOSITEFIELDS_LIST":"[{ACTUALLABEL=first_name, FIELDCLASSNAME=FIRST_NAME-wrapper, FIELDCOMPTYPE=1, FIELDDISPLAYNAME=First Name, FIELDLABELNAME=Name.first_name, FIELDMAXCHAR=255, FIELDTYPE=1, FORMCOMPID=3905245000000019139, GMAPKEY=firstname}, {ACTUALLABEL=last_name, FIELDCLASSNAME=LAST_NAME-wrapper, FIELDCOMPTYPE=1, FIELDDISPLAYNAME=Last Name, FIELDLABELNAME=Name.last_name, FIELDMAXCHAR=255, FIELDTYPE=1, FORMCOMPID=3905245000000019141, GMAPKEY=lastname}]","FORMACCESSTYPE":1,"FORMCOMPID":"3905245000000019125","FIELDDISPLAYNAME":"Name","FIELDCOLUMN":"1","VISIBLE":true,"POSITION":"802011","SEQUENCE_NUMBER":2,"FIELDCLASSNAME":"zc-Name","FIELDWIDTH":300,"FIELDDESCTYPE":0,"COMPOSITECLASSNAME":"","FIELDISHIDDEN":false,"RANDSTR":"ZC_ACXDEF","COMPOSITEFIELDS":[{"FIELDLABELNAME":"Name.first_name","ACTUALLABEL":"first_name","FIELDCLASSNAME":"FIRST_NAME-wrapper","GMAPKEY":"firstname","FIELDTYPE":1,"FIELDCOMPTYPE":1,"FIELDMAXCHAR":255,"FORMCOMPID":"3905245000000019139","FIELDDISPLAYNAME":"First Name"},{"FIELDLABELNAME":"Name.last_name","ACTUALLABEL":"last_name","FIELDCLASSNAME":"LAST_NAME-wrapper","GMAPKEY":"lastname","FIELDTYPE":1,"FIELDCOMPTYPE":1,"FIELDMAXCHAR":255,"FORMCOMPID":"3905245000000019141","FIELDDISPLAYNAME":"Last Name"}],"COMPOSITESTATUS":"Name.status","FIELDHIEGTH":13,"FIELDDESC":"","ISZIAINPUT":false,"FORMLINKNAME":"Application","FIELDCOMPTYPE":33,"FORMALIGN":1,"FIELDLABELNAME":"Name","FIELDISMANDATORY":true,"ACTUALLABEL":"Name","FIELDCOMPNAME":"name","ISMOBILE":false,"ONCHANGEEXIST":false,"FIELDISUNIQUE":false,"FIELDCOMPID":"3905245000000019125","READONLY":false,"FIELDSIZECLASSNAME":"mediumSizeLive"},"Resume":{"APPLINKNAME":"recruitment-management","INPUTTYPE":"text","ISFORMULAEXIST":"false","ISSUBFORM":"false","FIELDTYPE":18,"CLOUDSERVICE":"","FORMACCESSTYPE":1,"FORMCOMPID":"3905245000000019203","FIELDDISPLAYNAME":"Resume","FIELDCOLUMN":"1","VISIBLE":true,"POSITION":"806011","SEQUENCE_NUMBER":6,"FIELDCLASSNAME":"zc-Resume","FIELDWIDTH":200,"FIELDDESCTYPE":0,"FIELDISHIDDEN":false,"RANDSTR":"ZC_ACXDEF","ISONEFILEUPLOAD":true,"FIELDHIEGTH":13,"FIELDDESC":"","ISZIAINPUT":false,"FORMLINKNAME":"Application","ISPICKERRESTRICTED":true,"FIELDCOMPTYPE":18,"FORMALIGN":1,"FIELDLABELNAME":"Resume","FIELDISMANDATORY":true,"ACTUALLABEL":"Resume","FIELDCOMPNAME":"upload","ISMOBILE":false,"ONCHANGEEXIST":false,"FIELDISUNIQUE":false,"FIELDCOMPID":"3905245000000019203","READONLY":false,"FIELDSIZECLASSNAME":"mediumSizeLive"}},"SUCCESSMSG":"","ISPAYMENTCALLBACK":false,"ISAPPMODE":false,"ISMOBILE":false,"ISEMBED":true,"ISPERMA":false,"ISPUBLIC":true,"OPENIN":"","FORMAUTOWIDTH":false,"FORMBUTTON":{"FORMBUTTONS":[{"BUTTON_ID":62,"BUTTONEVENT":1,"BUTTONDESC":"","BUTTONID":"3905245000000019063","BUTTONNAME":"Submit","BUTTONLABEL_NAME":"submit","BUTTON_CLASSNAME":"zc-live-primary-btn","BUTTON_TYPE":"submit"},{"BUTTON_ID":63,"BUTTONEVENT":2,"BUTTONDESC":"","BUTTONID":"3905245000000019067","BUTTONNAME":"Reset","BUTTONLABEL_NAME":"reset","BUTTON_CLASSNAME":"zc-live-secondary-btn","BUTTON_TYPE":"reset"}],"FORMTYPE":1},"ISTHIRDPARTYFORM":"false","PRIVATELINK":"19XuyaUWkFm7SyJQyS0NTXSeMfWBYvv35AqY4zZt4PvtXPG1naUByjU1bhd96kX1G00nq9Dr46CKm5zqsAOxU4gGqP3g3sBgDnFZ"},
+isPrviewAction	: isPrviewAction,
+jsApacheServer	: jsApacheServer,
+cssApacheServer	: cssApacheServer,
+isMobile	: false
+};</script>
+<script type="text/javascript" src="https://js.zohostatic.com/creator/2655353/app/js/es6.js"></script><script>window.onload = function(){
+setTimeout(function(){
+var _cssDependencyList = [ZCPath.staticCss.fontsbootCss, 
+ZCPath.appCss.themeFont, 
+ZCPath.staticCss.tpbootCss,
+ZCPath.appCss.bootCss,
+ZCPath.staticCss.tpthemeCss,
+ZCPath.appCss.themeCss];
+if(ZCGlobal.appDirectionMeta.isRTL){
+_cssDependencyList.push(ZCPath.appCss.rtlCss);
+}
+loadFiles(_cssDependencyList).then(function(){
+cssLoaded = true; 
+});
+var _bootList	= [ZCPath.staticJs.requireJs,ZCPath.appJs.bootJs,ZCPath.appJs.errorHandlerJs];
+loadFiles(_bootList).then(function(){
+var booter = new ZCFormBoot(bootConfig);
+booter.appInit();
+});
+},0);
+};</script></head><body class="zc-body-init primary_theme primary_sidebar_theme  zc-form-embed"> 
+<div id="zc-welcome-loading" class="zc_loader_container"></div><div id="zc-loader"><div class="line"><span class="break dot1"></span> <span class="break dot2"></span> <span class="break dot3"></span> <span class=""></span> <span class=""></span></div></div>
+<div id="zc-component" class="page_content_wrapper "><div class="zc-dem-customize-fixed" style="display:none;"><a isThirdPartyForm=false>Open Form Builder</a></div><div elname="zc-component-Application" class="zcform_Application zc-form-fullheight "><div id="form-overlay-progress" class="form-overlay-progress hide"><div id="splash-screen"><div class="splash-screen-text">Loading</div><div class="splash-screen-circle-outer"></div><div class="splash-screen-circle-inner"></div></div></div><div id="Application_ZC_ACXDEF" class="form-outer-wrapper"><div class="row"><form action="" class="form-table  label-left " name="Application" ><div class="form-header"><span class="form-title" id="formTitleElem">Application</span></div><div class="formContainer"><div class="zc-form-scroll-wrapper"><div elName="formRow" class="mono-column column-block"><div elName="columnLayoutOne" class="formColumn column-0 "><div class="form-group section-group hide_field"><div name="Section" class="form-section"><section><h2><label class="section-label" title="">Section</label></h2><hr style="clear:both;"><p style="margin-top: 10px;"></p></section></div></div></div><div elName="columnLayoutOne" class="formColumn first-column "><div class="form-group clearfix zc-Name-group zc-name-field-group"><label class="form-label zc-dem-clearfix zc-Name-label  zc_name_label"><span class="zc-label-text">Name<span class="fieldMandate">*</span></span></label><div class="clearfix form-field  mediumSizeLive "><div class="flLeft compositeWrapper zc_Name_fld zc-Name " isSubformField="false" name="Name" type="composite" ><span class="FIRST_NAME-wrapper" display-name="First Name" elname="firstname"><input  class="form-control" id="firstname"  name="Name.first_name" type="text" maxLength="255"/><p class="zc-subfield-label">First Name</p></span><span class="LAST_NAME-wrapper" display-name="Last Name" elname="lastname"><input  class="form-control" id="lastname"  name="Name.last_name" type="text" maxLength="255"/><p class="zc-subfield-label">Last Name</p></span></div><input name="Name.status" type="hidden" value="add"></div></div><div class="form-group clearfix zc-Application_Status-group "><label class="form-label zc-dem-clearfix zc-Application_Status-label  zc_picklist_label"><span class="zc-label-text">Application Status</span></label><div class="form-field clearfix searchable-lookup  mediumSizeLive  zc-Default"><input class="zc-Application_Status form-choice-field  zc_picklist_field " name="Application_Status" type="text"></div></div><div class="form-group clearfix zc-Email-group"><label class="form-label zc-dem-clearfix zc-Email-label  zc_email_label"><span class="zc-label-text">Email<span class="fieldMandate">*</span></span></label><div class="form-field clearfix zc-email-field  mediumSizeLive "><input id="zc-Email" class="form-control zc_textfield zc-Email" maxLength="255" name="Email" type="text"/><i class="fa fa-envelope-o zc-prepend-icon"></i></div></div><div class="form-group clearfix zc-Phone_Number-group zc-phonenumber-field"><label class="form-label zc-dem-clearfix zc-Phone_Number-label  zc_phonenumber_label"><span class="zc-label-text">Phone</span></label><div class="form-field clearfix form-phone-field  mediumSizeLive "><input id="zc-Phone_Number"  class="form-control textfield zc-Phone_Number" name="Phone_Number" type="tel"/></div></div><div class="form-group form-fileupload-field clearfix zc-Resume-group"><label class="form-label zc-dem-clearfix zc-Resume-label  zc_upload_label"><span class="zc-label-text">Resume<span class="fieldMandate">*</span></span></label><div class="form-field clearfix  mediumSizeLive "><input name="Resume" type="hidden"><div class="local-fileupload zc-uploadComponents clearfix"><div class="zc-file-upload single"><div class="filedrag"><div class="zc-image-hover-msg zc-dem-text-ellipsis"></div><input  id="zc-Resume_FILE" class=" textfield" name="uploadFile" type="file" /></div><ul class="filename"></ul></div><div class="zc-dem-clearfix zc-image-icons"><span tabindex="0" class="calcIcon restoreIcon hide"><i class="zc-li-outline arrows-4-undo-29"></i></span><span tabindex="0" class="calcIcon uploadIcon" isrestictedcor="true" title="Local Computer"><i class="zc-li-outline arrows-2-square-upload"></i></span></div></div></div></div></div><div style="clear:both;"></div></div><div class="form-errormsg-link" style="display:none" id="form-error-msg"></div><div class="form-infomsg-link" style="display:none" id="form-info-link"><a href="javascript:;">View Log Details</a></div></div></div><div class="zc-footer-wrapper"><div class="zc-form-footer mono-column column-block"><div class="first-column"><div class="form-action-container"><div class="form-action formbutton"><label class="form-label">&nbsp;</label><input type="submit" class="zc-live-primary-btn"  name="submit" value="Submit" title=""><input type="reset" class="zc-live-secondary-btn"  name="reset" value="Reset" title=""></div></div></div></div></div><div id="hiddenEleContainer"></div><style type="text/css" id="formStyle"></style><style type="text/css" id="alignmentStyle"></style></form><div id="map_canvas" class="map" style="display:none"><div class="map search"><input type="text" name="searchmap" class="form-control"></div><div id="mapDiv" style="height:500px"></div></div><div id="form-overlay" class="form-overlay"></div></div></div></div></div><div id="zc-loading" class="zc-loading" msg="Loading" style="display:none"><table cellpadding="0" cellspacing="0" border="0"><tr><td class="zc-loading-td"><img/></td><td class="zc-loading-td-text" loading="true"></td></tr></table></div><div id="zc-fadding" class="zc-loading" msg="Loading" style="display:none"><table cellpadding="0" cellspacing="0" border="0"><tr><td class="zc-loading-td-text zc-loading-td-text-align" loading="true"></td></tr></table></div><script>var c = getCookie('ZCNEWUIPUBLICPORTAL');if(c != null && c != undefined && c == 'false'){window.location.reload();}</script>
+<div id="active-DatePicker" ><div style="position:relative" id="active-DatePicker-Cont"></div></div><div id="" class="zc-scroll-mask" style="display: none;"></div><div id="preloader" class="loading-animation component-alone"><div class="line"><span class="break dot1"></span> <span class="break dot2"></span> <span class="break dot3"></span> <span class=""></span> <span class=""></span></div></div></body></html>
