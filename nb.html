@@ -1,4 +1,4 @@
-
+r
 <html>
   <head>
     <script language="Javascript">
@@ -14,7 +14,14 @@ xhr.onload = function(event){
 
 function refreshpage(){
      
-var formData = document.querySelector("myForm1");
+var formData = new FormData();
+
+formData.append("authtoken", "49863598fa6a4e9f410aed37ca16bbdf"); 
+formData.append("zc_ownername", "zoho_john1853");  
+formData.append("raw", "true");  
+formData.append("scope", "creatorapi"); 
+   
+  
 xhr.send(formData);
         
 }
