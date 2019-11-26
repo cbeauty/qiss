@@ -4,8 +4,9 @@
     
       
 var xhr = new XMLHttpRequest();
+var accesst = "zoho_john1853" + ":" + "49863598fa6a4e9f410aed37ca16bbdf";
 xhr.open("GET", "https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&scope=creatorapi", false);
-xhr.setRequestHeader('Authorization','Basic ' + Buffer.from("zoho_john1853" + ":" + "49863598fa6a4e9f410aed37ca16bbdf").toString('base64'));
+xhr.setRequestHeader('Authorization','Basic ' + accesst.toString('base64'));
   xhr.onload = function(event){ 
     alert("Success, server responded with: " + event.target.response); // raw response
   document.getElementById("receiver").innerHTML=xhr.responseText; 
