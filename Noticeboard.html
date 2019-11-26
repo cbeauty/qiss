@@ -2,8 +2,9 @@
   <head>
     <script language="Javascript">
     
-      
-      var xhr = new XMLHttpRequest();
+  function hidethis()
+      {
+var xhr = new XMLHttpRequest();
 xhr.open("POST", "https://creator.zoho.com/api/json/pinthatthought/view/All_Emails"); 
 xhr.onload = function(event){ 
     alert("Success, server responded with: " + event.target.response); // raw response
@@ -12,6 +13,9 @@ xhr.onload = function(event){
 document.getElementById("receiver").innerHTML=xhr.responseText;      
 var formData = new FormData(document.getElementById("myForm1")); 
 xhr.send(formData);
+      
+      }
+      
       
       
       function myFunction(){
@@ -28,16 +32,16 @@ xhr.send(formData);
 <body >
 
 
-<form id=myForm1 >
+<form id="myForm1" enctype="multipart/form-data" target="hidden_iframe">
 <input type="hidden" name ="authtoken" value="49863598fa6a4e9f410aed37ca16bbdf">
 <input type="hidden" name="zc_ownername" value="zoho_john1853">
 <input type="hidden" name ="raw" value"true">   
 <input type="hidden" name ="scope" id="scope" value="creatorapi">       
 
-<input type="submit" value="View Records">
+<input type="Submit" value="View Records" >
 </form>
   
-<iframe id="receiver">
+<iframe id="hidden_iframe">
 </iframe>
 
 </body>
