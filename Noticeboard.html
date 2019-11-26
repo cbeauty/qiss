@@ -2,6 +2,17 @@
   <head>
     <script language="Javascript">
     
+      
+      var xhr = new XMLHttpRequest();
+xhr.open("POST", "https://creator.zoho.com/api/json/pinthatthought/view/All_Emails"); 
+xhr.onload = function(event){ 
+    alert("Success, server responded with: " + event.target.response); // raw response
+}; 
+// or onerror, onabort
+var formData = new FormData(document.getElementById("myForm")); 
+xhr.send(formData);
+      
+      
       function myFunction(){
        alert("boo"); 
       }
