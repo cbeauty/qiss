@@ -1,0 +1,132 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@cbeauty 
+Learn Git and GitHub without any code!
+Using the Hello World guide, you’ll start a branch, write comments, and open a pull request.
+
+
+1
+00cbeauty/qiss
+ Code Issues 0 Pull requests 0 Actions Projects 0 Wiki Security Insights Settings
+qiss
+/
+Noticeboard.html
+ 
+
+1
+<html>
+2
+  <head>
+3
+    <script language="Javascript">
+4
+    
+5
+      
+6
+      var xhr = new XMLHttpRequest();
+7
+xhr.open("POST", "https://creator.zoho.com/api/json/pinthatthought/view/All_Emails"); 
+8
+xhr.onload = function(event){ 
+9
+    alert("Success, server responded with: " + event.target.response); // raw response
+10
+}; 
+11
+// or onerror, onabort
+12
+document.getElementById("receiver").innerHTML=xhr.responseText;      
+13
+var formData = new FormData(document.getElementById("myForm1")); 
+14
+xhr.send(formData);
+15
+      
+16
+      
+17
+      function myFunction(){
+18
+       alert("boo"); 
+19
+      }
+20
+      
+21
+      function xx()
+22
+      {
+23
+        alert( document.getElementById('jhgframe').contentWindow.document.getElementById('testtext')); 
+24
+      }
+25
+    </script>
+26
+    
+27
+  </head>
+28
+<body >
+29
+​
+30
+​
+31
+<form id=myForm1 >
+32
+<input type="hidden" name ="authtoken" value="49863598fa6a4e9f410aed37ca16bbdf">
+33
+<input type="hidden" name="zc_ownername" value="zoho_john1853">
+34
+<input type="hidden" name ="raw" value"true">   
+35
+<input type="hidden" name ="scope" id="scope" value="creatorapi">       
+36
+​
+37
+<input type="submit" value="View Records">
+38
+</form>
+39
+  
+40
+<iframe id="receiver">
+41
+</iframe>
+42
+​
+43
+</body>
+44
+</html>
+45
+​
+@cbeauty
+Commit changes
+Commit summary
+Update Noticeboard.html
+Optional extended description
+Add an optional extended description…
+ Commit directly to the master branch.
+ Create a new branch for this commit and start a pull request. Learn more about pull requests.
+ 
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
