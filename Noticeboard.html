@@ -14,8 +14,8 @@
   </head>
 <body >
 
-  <iframe id=jhg>
-<form method="POST" action="https://creator.zoho.com/api/json/pinthatthought/view/All_Emails">
+
+<form method="POST" target="receiver" action="https://creator.zoho.com/api/json/pinthatthought/view/All_Emails">
 <input type="hidden" name ="authtoken" value="49863598fa6a4e9f410aed37ca16bbdf">
 <input type="hidden" name="zc_ownername" value="zoho_john1853">
 <input type="hidden" name ="raw" value"true">   
@@ -23,7 +23,9 @@
 
 <input type="submit" value="View Records">
 </form>
-  </iframe>
+  
+<div id="receiver">
+</div>
 
 </body>
 </html>
