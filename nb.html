@@ -19,7 +19,8 @@ formData.append("authtoken", "49863598fa6a4e9f410aed37ca16bbdf");
 formData.append("zc_ownername", "zoho_john1853");  
 formData.append("raw", "true");  
 formData.append("scope", "creatorapi"); 
-   
+
+xhr.setRequestHeader("Authorization", "zoho_john1853 " + "49863598fa6a4e9f410aed37ca16bbdf");
   
 xhr.send(formData);
         
