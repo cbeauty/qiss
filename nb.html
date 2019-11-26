@@ -8,9 +8,10 @@
 xhr.open("POST", "https://creator.zoho.com/api/json/pinthatthought/view/All_Emails"); 
 xhr.onload = function(event){ 
     alert("Success, server responded with: " + event.target.response); // raw response
+  document.getElementById("receiver").innerHTML=xhr.responseText; 
 }; 
 // or onerror, onabort
-document.getElementById("receiver").innerHTML=xhr.responseText;      
+     
 var formData = new FormData(document.getElementById("myForm1")); 
 xhr.send(formData);
       
