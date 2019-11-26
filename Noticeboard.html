@@ -9,8 +9,8 @@ xhr.onload = function(event){
     alert("Success, server responded with: " + event.target.response); // raw response
 }; 
 // or onerror, onabort
-document.getElementById("receiver").innerHTML=xmlhttp.responseText;      
-var formData = new FormData(document.getElementById("myForm")); 
+document.getElementById("receiver").innerHTML=xhr.responseText;      
+var formData = new FormData(document.getElementById("myForm1")); 
 xhr.send(formData);
       
       
@@ -28,7 +28,7 @@ xhr.send(formData);
 <body >
 
 
-<form id=myForm >
+<form id=myForm1 >
 <input type="hidden" name ="authtoken" value="49863598fa6a4e9f410aed37ca16bbdf">
 <input type="hidden" name="zc_ownername" value="zoho_john1853">
 <input type="hidden" name ="raw" value"true">   
