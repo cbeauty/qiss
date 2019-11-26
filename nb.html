@@ -4,7 +4,7 @@
     
       
 var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://creator.zoho.com/api/json/pinthatthought/view/All_Emails"); 
+xhr.open("GET", "https://creator.zoho.com/api/json/pinthatthought/view/All_Emails",true); 
 xhr.onload = function(event){ 
     alert("Success, server responded with: " + event.target.response); // raw response
   document.getElementById("receiver").innerHTML=xhr.responseText; 
@@ -20,8 +20,9 @@ formData.append("zc_ownername", "zoho_john1853");
 formData.append("raw", "true");  
 formData.append("scope", "creatorapi"); 
 
-xhr.setRequestHeader("Authorization", "zoho_john1853 " + "49863598fa6a4e9f410aed37ca16bbdf");
-  
+
+xhr.setRequestHeader("Authorization", "Bearer " + token);
+
 xhr.send(formData);
         
 }
