@@ -18,8 +18,9 @@ function refreshpage(){
   
   
      document.getElementById("receiver").innerHTML='<object type="text/html" data="https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&scope=creatorapi" ></object>'
-     document.getElementById("receiver").src="https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&scope=creatorapi"; 
-}
+     document.getElementById("receiver").reload(true);
+     
+     }
 
       
 function displaypage(){
