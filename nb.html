@@ -11,11 +11,13 @@ xhr.onload = function(event){
   document.getElementById("receiver").innerHTML=xhr.responseText; 
 }; 
 // or onerror, onabort
+
+function refreshPage(){
      
 var formData = document.querySelector("myForm1");
-
-
 xhr.send(formData);
+        
+}
       
       
       function myFunction(){
@@ -38,7 +40,7 @@ xhr.send(formData);
 <input type="hidden" name ="raw" value"true">   
 <input type="hidden" name ="scope" id="scope" value="creatorapi">       
 
-<input type="submit" value="View Records">
+<input type="button" value="View Records" onclick="refreshpage();">
 </form>
   
 <iframe id="receiver">
