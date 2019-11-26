@@ -17,7 +17,12 @@ function refreshpage(){
    alert("SS");
 document.getElementById("receiver").href="https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&scope=creatorapi"
 }
+
       
+function displaypage(){
+   
+alert(document.getElementById("receiver").innerHTML);
+}
       
       function myFunction(){
        alert("boo"); 
@@ -41,8 +46,10 @@ document.getElementById("receiver").href="https://creator.zoho.com/api/xml/pinth
 
 <input type="button" value="View Records" onclick="refreshpage();">
 </form>
+
+<input type="button" value="xxxs" onclick="displaypage();">
   
-<iframe id="receiver" onload=alert('xxxx');>
+<iframe id="receiver" >
 </iframe>
 
 </body>
