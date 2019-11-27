@@ -7,15 +7,15 @@
       
 var xhr = new XMLHttpRequest();
 var accesst = "zoho_john1853" + ":" + "49863598fa6a4e9f410aed37ca16bbdf";
-xhr.open("GET", "https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&scope=creatorapi", false);
+xhr.open("GET", "https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&raw=true&scope=creatorapi", false);
 xhr.setRequestHeader('Authorization','Basic ' + accesst.toString('base64'));
   xhr.onload = function(event){ 
     alert("Success, server responded with: " + event.target.response); // raw response
-  document.getElementById("receiver").innerHTML=xhr.responseText; 
+  document.getElementById("receiver").src=xhr.getRequestHeader; 
 }; 
 // or onerror, onabort
 
-function refreshpage(){
+function refreshpagexxx(){
 
    var xml =    "https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&scope=creatorapi";
    $(xml).find("record").each(function() {
@@ -25,7 +25,7 @@ function refreshpage(){
    })
  }
       
-  function xxx(){
+  function refreshpage(){
   
   xhr.send(null);
      //document.getElementById("receiver").innerHTML='<object type="text/html" data="https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&scope=creatorapi" ></object>'
@@ -65,7 +65,6 @@ alert(document.getElementById("receiver").innerHTML);
 <input type="button" value="xxxs" onclick="displaypage();">
 
   
-  <embed src="https://creator.zoho.com/api/xml/pinthatthought/view/All_Emails?authtoken=49863598fa6a4e9f410aed37ca16bbdf&zc_ownername=zoho_john1853&scope=creatorapi" width=200 height=200 onerror="alert('URL invalid !!');" />
 <iframe id="receiver" name="receiver" >
 </iframe>
 
