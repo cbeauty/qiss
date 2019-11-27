@@ -61,6 +61,7 @@ This is sending the text from the text area to zoho creator and then being retur
 		};
 		windowCallbackName = tempCallbackName;
 		var origin = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+		alert(origin);
 		var callbackURL = options.callbackURL || origin + "/callback.html"
 		callbackURL += "?callbackFnName=" + windowCallbackName + "&response="
 		// Function needs to be attached to global scope to get called by the iframe
